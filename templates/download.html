@@ -1,0 +1,25 @@
+<div class="reportblock content" id="downloadblock">
+    <p class="is-size-4">{{downloads_header}}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Records</th>
+                <th>Percent</th>
+                <th>Taxa</th>
+                <th>Locations</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for download in downloads %}
+            <tr>
+                <td>{{download.te_papa_records|string}} of {{download.total_records|string}}</td>
+                <td>{{download.contribution_percentage|string}}%</td>
+                <td>{{download.main_predicates.taxa|safe}}</td>
+                <td>{{download.main_predicates.locations|safe}}</td>
+                <td><a href="{{download.link}}">Details</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

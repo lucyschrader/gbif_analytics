@@ -1,0 +1,19 @@
+# venv and pycharm
+Lib/
+Scripts/
+.idea/
+.venv/
+pyvenv.cfg
+__pycache__/
+
+# Data files
+data/export_counts/
+data/report_data/
+data/saved_data/
+
+# Output files
+report/report_outputs/
+
+# CSS
+templates/bulma/
+templates/fonts/

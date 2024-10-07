@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="pdfkit-orientation" content="Landscape">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+    <link rel="stylesheet" href="{{printcss}}">
+    <title>GBIF activity this month</title>
+</head>
+<body>
+<div class="container">
+    <div class="columns">
+        <div class="column">{{total_counts|safe}}</div>
+        <div class="column">{{citations|safe}}</div>
+    </div>
+    <div class="columns">
+        <div class="column">{{downloads|safe}}</div>
+        <div class="column">{{strengths|safe}}</div>
+    </div>
+    <div>{{record_counts|safe}}</div>
+</div>
+</body>
+</html>

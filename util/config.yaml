@@ -1,0 +1,7 @@
+---
+base_url: https://api.gbif.org/v1/occurrence/download/dataset
+dataset_id: cafff6a5-1fa4-4a90-a2b3-f3db78b93d02
+limit: 20
+download_mode: "202409"     # can be full, YYYYMM, or null
+report_mode: "202409"      # can be YYYYMM or full
+run_profiler: false

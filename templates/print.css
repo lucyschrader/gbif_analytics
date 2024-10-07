@@ -1,0 +1,40 @@
+@font-face {
+	font-family: 'national-reg';
+	src: url("fonts/National2Web-Regular.woff")format("woff");
+}
+
+@font-face {
+	font-family: 'national-bold';
+	src: url("fonts/National2Web-Bold.woff")format("woff");
+}
+
+body {
+    font-size: 0.8em;
+	font-family: 'national-reg', serif;
+}
+
+.is-size-1, .is-size-2 {
+	font-family: 'national-bold', serif;
+}
+
+.highlight-number {
+    padding-top: 20px;
+    padding-bottom: 15px;
+}
+
+.columns {
+    padding: 0;
+}
+
+.citationcount {
+    padding-top: 1em;
+}
+
+#count-chart {
+    width: 90%;
+    margin: 1em auto;
+}
+
+#count-chart .legend {
+    border: none;
+}

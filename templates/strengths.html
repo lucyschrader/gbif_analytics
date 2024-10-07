@@ -1,0 +1,37 @@
+<div class="reportblock content" id="strengthsblock">
+    <p class="is-size-4">{{strengths_header}}</p>
+    <div class="columns">
+        <div class="column">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Count</th>
+                        <th>Taxa</th>
+                    </tr>
+                </thead>
+                {% for taxon in taxa %}
+                    <tr>
+                        <td>{{taxon.count|string}}</td>
+                        <td>{{taxon.label|safe}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="column">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Count</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                {% for location in locations %}
+                    <tr>
+                        <td>{{location.count|string}}</td>
+                        <td>{{location.label|safe}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
