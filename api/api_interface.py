@@ -110,12 +110,15 @@ class Request():
 				              sleep=self.sleep,
 				              quiet=self.quiet).response
 
-		self.status_code = self.response.status_code
+		if self.response:
+			self.status_code = self.response.status_code
 
-		if not self.quiet:
-			print("Request {u} status {s}".format(u=self.request_url, s=self.status_code))
+			if not self.quiet:
+				print("Request {u} status {s}".format(u=self.request_url, s=self.status_code))
 
-		self.check_status()
+			self.check_status()
+		else:
+			self.error_message = "Unable to retrieve query."
 
 	def check_status(self):
 		if self.status_code == 200:

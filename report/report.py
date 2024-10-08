@@ -27,8 +27,8 @@ def load_analytics_data():
 def read_export_counts():
 	export_counts = {}
 	total_records_count = 0
-	for ex in os.listdir("../data/export_counts"):
-		with open("../data/export_counts/{}".format(ex), "r", encoding="utf-8") as f:
+	for ex in os.listdir("data/export_counts"):
+		with open("data/export_counts/{}".format(ex), "r", encoding="utf-8") as f:
 			count_data = yaml.load(f, Loader=Loader)
 			year = count_data["year"]
 			if not export_counts.get(year):
@@ -42,7 +42,7 @@ def read_export_counts():
 
 
 def get_export_stats():
-	update_file = "../data/report_data/newexportstats.yaml"
+	update_file = "data/report_data/newexportstats.yaml"
 	export_data = {"recordCounts": {}, "additions": {}, "updates": {}}
 	with open(update_file, "r", encoding="utf-8") as f:
 		update_data = yaml.load(f, Loader=Loader)
@@ -53,7 +53,7 @@ def get_export_stats():
 		export_month = update_data["month"]
 
 	# TODO: Only update file if this data is missing
-	with open("../data/report_data/exportstatsmonthly.yaml", "w", encoding="utf-8") as f:
+	with open("data/report_data/exportstatsmonthly.yaml", "w", encoding="utf-8") as f:
 		saved_export_data = yaml.load(f, Loader=Loader)
 		saved_export_data[export_year][export_month] = export_data
 		yaml.dump(export_data, f)
@@ -62,7 +62,7 @@ def get_export_stats():
 
 
 def get_analytics_data():
-	analytics_file = "../data/report_data/report_data.yaml"
+	analytics_file = "data/report_data/report_data.yaml"
 	analytics_data = None
 	try:
 		with open(analytics_file, "r", encoding="utf-8") as f:
@@ -101,7 +101,7 @@ def build_report_blocks(analytics_data, export_counts, total_records_count):
 	totals_block = build_total_counts_block(total_records_count)
 
 	print("Building citations")
-	citations_data = read_json_file("../data/saved_data/citations.json")
+	citations_data = read_json_file("data/saved_data/citations.json")
 	write_citations(citations_data)
 	citations = build_citations_block(citations_data)
 
@@ -184,7 +184,7 @@ def build_monthly_counts_data(data):
 
 def load_activity_by_month():
 	download_counts = []
-	with open("../data/saved_data/downloads_statistics.tsv", "r", encoding="utf-8") as f:
+	with open("data/saved_data/downloads_statistics.tsv", "r", encoding="utf-8") as f:
 		reader = csv.DictReader(f, delimiter="\t")
 		for row in reader:
 			download_counts.append({"year": int(row["year"]),
@@ -196,7 +196,7 @@ def load_activity_by_month():
 
 def write_to_csv(label, data, headers):
 	headers.insert(0, "")
-	with open("../report/report_outputs/{}.csv".format(label), "w+", newline="", encoding="utf-8") as outfile:
+	with open("report/report_outputs/{}.csv".format(label), "w+", newline="", encoding="utf-8") as outfile:
 		writer = csv.writer(outfile, delimiter=",")
 		writer.writerow(headers)
 		headers.pop(0)
@@ -212,7 +212,7 @@ def write_to_csv(label, data, headers):
 
 def build_total_counts_block(total_records_count):
 	print(total_records_count)
-	metadata = read_json_file("../data/saved_data/saved_metadata.json")
+	metadata = read_json_file("data/saved_data/saved_metadata.json")
 	try:
 		download_count = metadata["total_count"]
 		count_template = env.get_template("newrecords.html")
@@ -264,7 +264,7 @@ def write_citations(data):
 	print(len(data["publications"]))
 	print(data["publications"])
 
-	with open("report_outputs/citations.csv", "w+", encoding="utf-8") as f:
+	with open("report/report_outputs/citations.csv", "w+", encoding="utf-8") as f:
 		writer = csv.writer(f, delimiter=",")
 		writer.writerow(headers)
 		for citation in data["publications"]:
@@ -307,7 +307,7 @@ def build_strengths_block(strengths_data):
 
 def combine_blocks(counts_block, totals_block, citations, downloads, strengths):
 	print("Building main")
-	main_css = "file://{}".format(os.path.abspath("../templates/print.css"))
+	main_css = "file://{}".format(os.path.abspath("templates/print.css"))
 	main_template = env.get_template("main.html")
 	main_html = main_template.render(total_counts=totals_block,
 	                                 citations=citations,
@@ -319,7 +319,7 @@ def combine_blocks(counts_block, totals_block, citations, downloads, strengths):
 
 
 def create_pdf(html):
-	html_file = "../report/report_outputs/analyticspage.html"
+	html_file = "report/report_outputs/analyticspage.html"
 	with open(html_file, "w+", encoding="utf-8") as outfile:
 		outfile.write(html)
 
@@ -328,7 +328,7 @@ def create_pdf(html):
 		page = browser.new_page()
 		page.goto("file://{}".format(os.path.abspath(html_file)))
 		page.emulate_media(media="screen")
-		page.pdf(path="../report/report_outputs/analyticspdf.pdf", landscape=True, scale=0.9)
+		page.pdf(path="report/report_outputs/analyticspdf.pdf", landscape=True, scale=0.9)
 
 
 def run():

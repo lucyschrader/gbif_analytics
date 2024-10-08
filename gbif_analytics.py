@@ -2,6 +2,7 @@ from data.download import download_activity, download_citations
 from util.config import load_config, read_config
 from util.processing import process_activity_data, find_greatest_proportion
 from util.export import export_proportion_report, export_report_data
+from report import report
 import cProfile
 import pstats
 
@@ -13,14 +14,17 @@ import pstats
 # Find and sort out the weirdnesses
 
 def run_analytics():
-	dataset_id = read_config("dataset_id")
-	download_mode = read_config("download_mode")
-	download_activity(dataset_id, download_mode)
-	download_citations(dataset_id)
-	process_activity_data()
-	sorted_records = find_greatest_proportion()
-	export_proportion_report(sorted_records)
-	export_report_data()
+	if read_config("download_mode"):
+		dataset_id = read_config("dataset_id")
+		download_mode = read_config("download_mode")
+		download_activity(dataset_id, download_mode)
+		download_citations(dataset_id)
+		process_activity_data()
+		sorted_records = find_greatest_proportion()
+		export_proportion_report(sorted_records)
+		export_report_data()
+
+	report.run()
 
 if __name__ == "__main__":
 	load_config("util/config.yaml")

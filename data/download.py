@@ -53,7 +53,7 @@ def get_activity_count(kwargs):
 def get_activity_pages(page_count, request_kwargs, since):
 	since_datestamp = None
 	if since:
-		year = since[:3]
+		year = since[:4]
 		month = since[-2:]
 		since_datestamp = date(int(year), int(month), 1)
 	activity = []
@@ -87,8 +87,9 @@ def get_activity_page(i, kwargs):
 	kwargs["offset"] = offset
 	activity_page_request = Request(**kwargs)
 	activity_page_request.send_query()
-	if activity_page_request.status_code == 200:
-		return activity_page_request.records
+	if not activity_page_request.error_message:
+		if activity_page_request.status_code == 200:
+			return activity_page_request.records
 	else:
 		return None
 
